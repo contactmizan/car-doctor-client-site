@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
@@ -6,6 +6,9 @@ import { AuthContext } from '../../providers/AuthProvider';
 const Login = () => {
 
     const { signIn } = useContext(AuthContext);
+    const location = useLocation();
+    console.log(location);
+    const navigate = useNavigate();
 
     const handlelogin = e => {
         e.preveDefault();
@@ -18,6 +21,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(location?.state ? location?.state : '/');
             })
             .catch(error => console.log(error));
     }
@@ -35,10 +39,11 @@ const Login = () => {
                                 <label className="fieldset-label">Email</label>
                                 <input type="email" name='email' className="input" placeholder="Email" />
                                 <label className="fieldset-label">Password</label>
-                                <input type="password" className="input" placeholder="Password" />
+                                <input type="password" name='password' className="input" placeholder="Password" />
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 <div className=''>
-                                    <input className="btn btn-neutral mt-4 w-full" type="submit" name='password' value="Login" />
+                                    <input className="btn btn-neutral mt-4 w-full" type="submit" name='' value="Login" />
+                                  
                                 </div>
                             </fieldset>
                         </form>
