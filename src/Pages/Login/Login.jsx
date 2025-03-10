@@ -19,9 +19,16 @@ const Login = () => {
 
         signIn(email, password)
             .then(result => {
-                const user = result.user;
-                console.log(user);
-                navigate(location?.state ? location?.state : '/');
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                const user = { email };
+                // navigate(location?.state ? location?.state : '/');
+                //get access token
+                axios.post('http://localhost:5000/jwt', user)
+                    .then(res => {
+                        console.log(res.data);
+
+                    })
             })
             .catch(error => console.log(error));
     }
@@ -43,7 +50,7 @@ const Login = () => {
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 <div className=''>
                                     <input className="btn btn-neutral mt-4 w-full" type="submit" name='' value="Login" />
-                                  
+
                                 </div>
                             </fieldset>
                         </form>
